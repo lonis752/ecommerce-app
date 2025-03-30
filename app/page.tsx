@@ -16,10 +16,10 @@ export default async function Home() {
         <div className="mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2">
           <div className="max-w-md space-y-4">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Welcome to My Ecommerce
+              Welcome to Buyify
             </h2>
             <p className="text-neutral-600">
-              Discover the latest products at the best prices.
+              Discover the latest products you never know you needed.
             </p>
             <Button
               asChild
@@ -36,7 +36,7 @@ export default async function Home() {
           </div>
           <Image
             alt="Hero Image"
-            src={products.data[0].images[0]}
+            src={products.data[2].images[0]}
             className="rounded"
             width={450}
             height={450}
