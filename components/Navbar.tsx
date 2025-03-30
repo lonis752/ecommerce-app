@@ -1,7 +1,6 @@
 'use client';
 
 import { useCartStore } from '@/store/cart-store';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { TiShoppingCart } from 'react-icons/ti';
@@ -33,8 +32,8 @@ const Navbar = () => {
       <div className='container flex items-center justify-between px-4 py-4'>
         <Link href='/' className='hover:text-blue-600 flex px-5'>
           <h1>Buyify</h1>
-          <p className='text-sm text-gray-300'>buy</p>
-          <p className='text-xs text-gray-200'>buy</p>
+          <p className='text-sm text-gray-300 hover:text-green-300'>buy</p>
+          <p className='text-xs text-gray-200 hover:text-green-200'>buy</p>
         </Link>
         <div className='flex items-center gap-5'>
           <div className='hidden md:flex space-x-6'>
