@@ -30,35 +30,36 @@ const Navbar = () => {
 
   return (
     <nav className='sticky top-0 z-50 bg-white shadow'>
-      <div className='container mx-auto flex items-center justify-between px-4 py-4'>
-        <Link href='/' className='hover:text-blue-600'>
-          My Ecommerce
+      <div className='container flex items-center justify-between px-4 py-4'>
+        <Link href='/' className='hover:text-blue-600 flex px-5'>
+          <h1>Buyify</h1>
+          <p className='text-sm text-gray-300'>buy</p>
+          <p className='text-xs text-gray-200'>buy</p>
         </Link>
-        <div className='hidden md:flex space-x-6'>
-          <Link href='/'>Home</Link>
-          <Link href='/products' className='hover:text-blue-600'>
-            Products
-          </Link>
-          <Link href='/checkout' className='hover:text-blue-600'>
-            Checkout
-          </Link>
-        </div>
-        <div className='flex items-center space-x-4'>
-          <Link href='/checkout' className='relative'>
-            <TiShoppingCart className='text-2xl' />
-            {cartCount > 0 && (
-              <span className='absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white'>
-                {cartCount}
-              </span>
-            )}
-          </Link>
-          <Button
-            variant='ghost'
-            className='md:hidden'
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <FaXmark /> : <GiHamburgerMenu />}
-          </Button>
+        <div className='flex items-center gap-5'>
+          <div className='hidden md:flex space-x-6'>
+            <Link href='/'>Home</Link>
+            <Link href='/products' className='hover:text-blue-600'>
+              Products
+            </Link>
+          </div>
+          <div className='flex items-center space-x-4'>
+            <Link href='/checkout' className='relative'>
+              <TiShoppingCart className='text-2xl' />
+              {cartCount > 0 && (
+                <span className='absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white'>
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <Button
+              variant='ghost'
+              className='md:hidden'
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <FaXmark /> : <GiHamburgerMenu />}
+            </Button>
+          </div>
         </div>
       </div>
       {mobileOpen && (

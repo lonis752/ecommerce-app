@@ -36,7 +36,7 @@ export default async function Home() {
           </div>
           <Image
             alt="Hero Image"
-            src={products.data[0].images[0]}
+            src={products.data[2].images[0]}
             className="rounded"
             width={450}
             height={450}
