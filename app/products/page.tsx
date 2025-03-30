@@ -1,4 +1,4 @@
-import ProductList from '@/components/ui/productList';
+import ProductList from '@/components/productList';
 import { stripe } from '@/lib/stripe';
 import React from 'react';
 

@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Stripe from 'stripe';
 import Image from 'next/image';
-import { Button } from './button';
+import { Button } from './ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from './card';
+} from './ui/card';
 
 interface Props {
   product: Stripe.Product;
