@@ -1,13 +1,20 @@
+import ProductList from '@/components/ui/productList';
 import { stripe } from '@/lib/stripe';
-import React from 'react'
+import React from 'react';
 
 const ProductPage = async () => {
   const products = await stripe.products.list({
-    expand: ["data.default_price"],
+    expand: ['data.default_price'],
   });
-  return (
-    <div>ProductPage</div>
-  )
-}
 
-export default ProductPage
+  return (
+    <div className='pb-8'>
+      <h1 className='text-3xl font-bold leading-none tracking-tight text-foreground text-center mb-8'>
+        All Products
+      </h1>
+      <ProductList products={products.data} />
+    </div>
+  );
+};
+
+export default ProductPage;
