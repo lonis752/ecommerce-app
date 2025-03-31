@@ -86,7 +86,7 @@ const Navbar = () => {
             <SignedIn>
               <Link href='/'>Home</Link>
               <Link href='/products' className='hover:text-blue-600'>
-                Products
+                Store
               </Link>
             </SignedIn>
           </div>
@@ -123,7 +123,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link href='/products' className='block hover:text-blue-600'>
-                  Products
+                  Store
                 </Link>
               </li>
               <li>

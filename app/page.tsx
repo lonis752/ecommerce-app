@@ -8,19 +8,22 @@ import BestSeller from '@/components/BestSeller';
 export default async function Home() {
   const products = await stripe.products.list({
     expand: ['data.default_price'],
-    limit: 6,
+    limit: 10,
   });
 
   return (
     <div>
-      <section className='rounded bg-neutral-100 py-8 sm:py-12'>
+      <section className='rounded bg-neutral-100 py-8 sm:py-15'>
         <div className='mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2'>
           <div className='max-w-md space-y-4'>
             <h2 className='text-3xl font-bold tracking-tight md:text-4xl'>
               Welcome to Buyify
             </h2>
             <p className='text-neutral-600'>
-              Discover the latest products you never know you needed.
+              Discover the latest products you never knew you needed—innovative,
+              stylish, and designed to make life easier. From everyday
+              essentials to unique finds, explore a curated selection that
+              surprises and delights.
             </p>
             <Button
               asChild
@@ -47,11 +50,11 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-      <section className='py-8'>
-        <Carousel products={products.data} />
+      <section className='py-8 pt-15'>
+        <BestSeller products={products.data} />
       </section>
       <section className='py-8'>
-        <BestSeller />
+        <Carousel products={products.data} />
       </section>
     </div>
   );
