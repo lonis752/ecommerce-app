@@ -3,11 +3,12 @@ import { stripe } from '@/lib/stripe';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Carousel } from '@/components/Carousel';
+import BestSeller from '@/components/BestSeller';
 
 export default async function Home() {
   const products = await stripe.products.list({
     expand: ['data.default_price'],
-    limit: 5,
+    limit: 6,
   });
 
   return (
@@ -48,6 +49,9 @@ export default async function Home() {
       </section>
       <section className='py-8'>
         <Carousel products={products.data} />
+      </section>
+      <section className='py-8'>
+        <BestSeller />
       </section>
     </div>
   );
