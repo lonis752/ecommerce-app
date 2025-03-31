@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCartStore } from '@/store/cart-store';
 import { checkoutAction } from './checkoutAction';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import Image from 'next/image';
 
 export default function CheckoutPage() {
   const { items, removeItem, addItem, clearCart } = useCartStore();
@@ -32,27 +34,40 @@ export default function CheckoutPage() {
             {items.map((item) => (
               <li key={item.id} className='flex flex-col gap-2 border-b pb-2'>
                 <div className='flex justify-between'>
-                  <span className='font-medium'>{item.name}</span>
-                  <span className='font-semibold'>
-                    ${((item.price * item.quantity) / 100).toFixed(2)}
-                  </span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={() => removeItem(item.id)}
-                  >
-                    –
-                  </Button>
-                  <span className='text-lg font-semibold'>{item.quantity}</span>
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    onClick={() => addItem({ ...item, quantity: 1 })}
-                  >
-                    +
-                  </Button>
+                  <div className='flex flex-col gap-2'>
+                    <span className='font-medium'>{item.name}</span>
+                    <Image
+                      className='rounded'
+                      src={item.imageUrl as string}
+                      alt={item.name}
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <div>
+                    <span className='font-semibold'>
+                      ${((item.price * item.quantity) / 100).toFixed(2)}
+                    </span>
+                    <div className='flex items-center gap-2 pt-4'>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        onClick={() => removeItem(item.id)}
+                      >
+                        –
+                      </Button>
+                      <span className='text-lg font-semibold'>
+                        {item.quantity}
+                      </span>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        onClick={() => addItem({ ...item, quantity: 1 })}
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </li>
             ))}
@@ -63,10 +78,23 @@ export default function CheckoutPage() {
         </CardContent>
       </Card>
       <form action={checkoutAction} className='max-w-md mx-auto'>
-        <input type='hidden' name='items' value={JSON.stringify(items)} /* Pass the cart items as a JSON string */ />
-        <Button type='submit' variant='default' className='w-full'>
-          Proceed to Payment
-        </Button>
+        <input
+          type='hidden'
+          name='items'
+          value={JSON.stringify(
+            items
+          )} /* Pass the cart items as a JSON string */
+        />
+        <SignedIn>
+          <Button type='submit' variant='default' className='w-full'>
+            Proceed to Payment
+          </Button>
+        </SignedIn>
+        <SignedOut>
+          <div className='w-full font-semibold text-sm border p-2 rounded-lg text-center bg-black text-white'>
+            <SignInButton>Sign In to Checkout</SignInButton>
+          </div>
+        </SignedOut>
         <Button
           onClick={() => clearCart()}
           variant='default'

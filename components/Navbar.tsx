@@ -7,11 +7,49 @@ import { TiShoppingCart } from 'react-icons/ti';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaXmark } from 'react-icons/fa6';
 import { Button } from './ui/button';
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from '@clerk/nextjs';
+import axios from 'axios';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const { items } = useCartStore();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const { user } = useUser(); // Get the user data from Clerk
+
+  useEffect(() => {
+    const createStripeCustomer = async () => {
+      if (user) {
+        const userEmail = user.emailAddresses[0].emailAddress;
+        const userName = user.firstName || 'Unknown User';
+
+        try {
+          const response = await axios.post('/api/create-stripe-customer', {
+            userId: user.id,
+            email: userEmail,
+            name: userName,
+          });
+          console.log('Stripe customer created:', response.data);
+
+          // Set a flag in sessionStorage to prevent repeated API calls
+          sessionStorage.setItem('stripeCustomerCreated', 'true');
+        } catch (error) {
+          console.error('Error creating Stripe customer:', error);
+        }
+      }
+    };
+
+    // Check if the user is logged in and the API call hasn't been made yet
+    if (user && !sessionStorage.getItem('stripeCustomerCreated')) {
+      createStripeCustomer();
+    }
+  }, [user]); // Only trigger when `user` changes
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,12 +75,25 @@ const Navbar = () => {
         </Link>
         <div className='flex items-center gap-5'>
           <div className='hidden md:flex space-x-6'>
-            <Link href='/'>Home</Link>
-            <Link href='/products' className='hover:text-blue-600'>
-              Products
-            </Link>
+            <SignedOut>
+              <Link href='/'>Home</Link>
+              <Link href='/products' className='hover:text-blue-600'>
+                Products
+              </Link>
+              <SignInButton>Login</SignInButton>
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <Link href='/'>Home</Link>
+              <Link href='/products' className='hover:text-blue-600'>
+                Products
+              </Link>
+            </SignedIn>
           </div>
           <div className='flex items-center space-x-4'>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
             <Link href='/checkout' className='relative'>
               <TiShoppingCart className='text-2xl' />
               {cartCount > 0 && (
@@ -64,21 +115,46 @@ const Navbar = () => {
       {mobileOpen && (
         <nav className='md:hidden bg-white shadow-md'>
           <ul className='flex flex-col p-4 space-y-2'>
-            <li>
-              <Link href='/' className='block hover:text-blue-600'>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href='/products' className='block hover:text-blue-600'>
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link href='/checkout' className='block hover:text-blue-600'>
-                Checkout
-              </Link>
-            </li>
+            <SignedOut>
+              <li>
+                <Link href='/' className='block hover:text-blue-600'>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href='/products' className='block hover:text-blue-600'>
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link href='/checkout' className='block hover:text-blue-600'>
+                  Checkout
+                </Link>
+              </li>
+              <li>
+                <SignInButton>Login</SignInButton>
+              </li>
+              <li>
+                <SignUpButton />
+              </li>
+            </SignedOut>
+            <SignedIn>
+              <li>
+                <Link href='/' className='block hover:text-blue-600'>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href='/products' className='block hover:text-blue-600'>
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link href='/checkout' className='block hover:text-blue-600'>
+                  Checkout
+                </Link>
+              </li>
+            </SignedIn>
           </ul>
         </nav>
       )}
