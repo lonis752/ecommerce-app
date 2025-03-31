@@ -4,11 +4,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
 } from '@clerk/nextjs';
 
 const geistSans = Geist({
