@@ -1,7 +1,9 @@
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Stripe from 'stripe';
+import { motion } from 'framer-motion';
 
 interface Props {
   products: Stripe.Product[];
@@ -18,17 +20,24 @@ const BestSeller = ({ products }: Props) => {
     .slice(0, 6);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    >
       <Link href='/products'>
         <h2 className='text-3xl font-bold leading-none tracking-tight text-foreground mb-8'>
           Best Sellers
         </h2>
       </Link>
       <ul className='grid grid-cols-3 gap-4 place-items-center'>
-        {sortedProducts.map((product) => (
-          <li
+        {sortedProducts.map((product, index) => (
+          <motion.li
             key={product.id}
             className='w-full flex-shrink-0 rounded-lg shadow-lg border border-gray-700 p-4 bg-white'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
           >
             {product.images[0] && (
               <div className='relative w-full h-30 sm:h-60'>
@@ -52,10 +61,10 @@ const BestSeller = ({ products }: Props) => {
                   100}
               </p>
             )}
-          </li>
+          </motion.li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 };
 
