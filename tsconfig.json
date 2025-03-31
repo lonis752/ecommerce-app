@@ -13,8 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./",
-    "types": ["jest", "node"],
     "plugins": [
       {
         "name": "next"
@@ -22,7 +20,6 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/create-stripe-customer/route.js"],
