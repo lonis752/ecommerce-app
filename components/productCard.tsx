@@ -65,14 +65,14 @@ export const ProductCard = ({ product }: Props) => {
             </p>
           )}
           <div className='flex items-center space-x-4'>
-            <Button variant='outline' onClick={() => removeItem(product.id)}>
+            <Button className='hover:bg-red-600 hover:text-white' variant='outline' onClick={() => removeItem(product.id)}>
               –
             </Button>
             <span className='text-lg font-semibold'>{quantity}</span>
-            <Button onClick={onAddItem}>+</Button>
+            <Button className='hover:bg-green-600' onClick={onAddItem}>+</Button>
           </div>
           <Link href={`/products/${product.id}`}>
-            <Button className='mt-4 bg-black text-white'>View Details</Button>
+            <Button className='hover:bg-green-600 mt-4 bg-black text-white w-full'>View Details</Button>
           </Link>
         </CardContent>
       </Card>

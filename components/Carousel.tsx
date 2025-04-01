@@ -40,7 +40,7 @@ export const Carousel = ({
   return (
     <div ref={containerRef} className='relative sm:w-[calc(100vw-10rem)] max-w-screen overflow-hidden'>
       <Link href='/products'>
-        <h2 className='text-3xl font-bold leading-none tracking-tight text-foreground mb-8'>
+        <h2 className='hover:text-green-600 text-3xl font-bold leading-none tracking-tight text-foreground mb-8'>
           Products
         </h2>
       </Link>

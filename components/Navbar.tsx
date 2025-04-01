@@ -23,6 +23,7 @@ const Navbar = () => {
   const { items } = useCartStore();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   const { user } = useUser();
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const createStripeCustomer = async () => {
@@ -70,34 +71,66 @@ const Navbar = () => {
       transition={{ duration: 0.4 }}
       className='sticky top-0 z-50 bg-white shadow'
     >
-      <div className='container flex items-center justify-between px-4 py-4'>
+      <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className='container flex items-center justify-between px-4 py-4'
+      >
         <Link href='/' className='hover:text-green-600 flex px-5 text-3xl'>
-          <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 2, ease: "easeOut" }}>Buyify</motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 2, ease: "easeOut" }} className='text-sm text-gray-300 hover:text-green-300'>buy</motion.p>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 2, ease: "easeOut" }} className='text-xs text-gray-200 hover:text-green-200'>buy</motion.p>
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 2, ease: 'easeOut' }}
+          >
+            Buyify
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 2, ease: 'easeOut' }}
+            className='text-sm text-gray-300 hover:text-green-300'
+          >
+            {hovered ? '$$$' : 'buy'}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 2, ease: 'easeOut' }}
+            className='text-xs text-gray-200 hover:text-green-200'
+          >
+            {hovered ? '$$$' : 'buy'}
+          </motion.p>
         </Link>
         <div className='flex items-center gap-5'>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1.5, ease: "easeOut" }}
+            transition={{ delay: 0.8, duration: 1.5, ease: 'easeOut' }}
             className='hidden md:flex space-x-6'
           >
             <SignedOut>
-              <Link href='/' className='hover:text-green-600'>Home</Link>
-              <Link href='/products' className='hover:text-green-600'>Products</Link>
+              <Link href='/' className='hover:text-green-600'>
+                Home
+              </Link>
+              <Link href='/products' className='hover:text-green-600'>
+                Store
+              </Link>
               <SignInButton>Login</SignInButton>
               <SignUpButton />
             </SignedOut>
             <SignedIn>
-              <Link href='/' className='hover:text-green-600'>Home</Link>
-              <Link href='/products' className='hover:text-green-600'>Store</Link>
+              <Link href='/' className='hover:text-green-600'>
+                Home
+              </Link>
+              <Link href='/products' className='hover:text-green-600'>
+                Store
+              </Link>
             </SignedIn>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1.5, ease: "easeOut" }}
+            transition={{ delay: 1, duration: 1.5, ease: 'easeOut' }}
             className='flex items-center space-x-4'
           >
             <SignedIn>

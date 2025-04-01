@@ -76,7 +76,10 @@ const ProductList = ({ products }: Props) => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, ease: 'easeInOut' }}
         >
-          <Button onClick={() => setSortByBestSellers((prev) => !prev)}>
+          <Button
+            className='hover:bg-green-600'
+            onClick={() => setSortByBestSellers((prev) => !prev)}
+          >
             {sortByBestSellers ? 'Clear Sort' : 'Best Sellers'}
           </Button>
         </motion.div>

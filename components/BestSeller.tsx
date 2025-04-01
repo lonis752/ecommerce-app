@@ -26,7 +26,7 @@ const BestSeller = ({ products }: Props) => {
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       <Link href='/products'>
-        <h2 className='text-3xl font-bold leading-none tracking-tight text-foreground mb-8'>
+        <h2 className='hover:text-green-600 text-3xl font-bold leading-none tracking-tight text-foreground mb-8'>
           Best Sellers
         </h2>
       </Link>
@@ -46,7 +46,7 @@ const BestSeller = ({ products }: Props) => {
                     src={product.images[0]}
                     alt={product.name}
                     fill
-                    className='object-cover rounded-md'
+                    className='object-contain rounded-lg'
                   />
                 </Link>
               </div>

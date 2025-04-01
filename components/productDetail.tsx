@@ -26,7 +26,7 @@ export const ProductDetail = ({ product }: Props) => {
   };
 
   return (
-    <div className='container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center'>
+    <div className='container sm:h-[calc(100vh-150px)] mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center'>
       {product.images && product.images[0] && (
         <div className='relative h-96 w-full md:w-1/2 rounded-lg overflow-hidden'>
           <Image
@@ -50,12 +50,12 @@ export const ProductDetail = ({ product }: Props) => {
           </p>
         )}
         <div className='flex items-center space-x-4'>
-          <Button variant='outline' onClick={() => removeItem(product.id)}>
-            –
-          </Button>
-          <span className='text-lg font-semibold'>{quantity}</span>
-          <Button onClick={onAddItem}>+</Button>
-        </div>
+            <Button className='hover:bg-red-600 hover:text-white' variant='outline' onClick={() => removeItem(product.id)}>
+              –
+            </Button>
+            <span className='text-lg font-semibold'>{quantity}</span>
+            <Button className='hover:bg-green-600' onClick={onAddItem}>+</Button>
+          </div>
       </div>
     </div>
   );
